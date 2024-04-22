@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .completed {
+            text-decoration: line-through; /* Przekreślenie tekstu */
+            color: #999; /* Kolor szarego tekstu */
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="list">
+        <li>Przykładowa pozycja 1</li>
+        <li>Przykładowa pozycja 2</li>
+        <li>Przykładowa pozycja 3</li>
+    </ul>
+
+    <script>
+        window.onload = () => {
+            const listItems = document.querySelectorAll("#list li");
+
+            listItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    if (item.classList.contains("completed")) {
+                        item.classList.remove("completed");
+                    } else {
+                        item.classList.add("completed");
+                    }
+                });
+            });
+        };
+    </script>
+</body>
+</html>

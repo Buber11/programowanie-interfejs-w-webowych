@@ -1,0 +1,10 @@
+.completed {
+    text-decoration: line-through; /* Przekreślenie tekstu */
+    color: #999; /* Kolor szarego tekstu */
+}
+
+li {
+    display: flex;
+    gap: 60px; /* Dodanie odstępów między elementami */
+}
+

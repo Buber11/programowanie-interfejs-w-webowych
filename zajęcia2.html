@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="number-a">Liczba a:</label>
+    <input id="number-a" placeholder="number a">
+    <label for="number-b">Liczba b:</label>
+    <input id="number-b" placeholder="number b">
+
+<br>
+
+    <button onclick="adder()">+</button>
+    <button>-</button>
+    <button>*</button>
+    <button>/</button>
+
+    <ol id="list">
+
+    </ol>
+
+    <dialog id="modal">
+        <h3>Ej, skopałeś</h3>
+        <button id="closing">spoko, ok</button>
+    </dialog>
+
+    <script>
+        "use strict"
+
+        //liczby - Number
+        //string - String
+        //Boolean - Boolean
+        //listy map itd - object
+        //puste - null, undefined
+        //zawsze sami wszytko definijuemy jako null, undefined to przypadki nie obsłużone przez programistę
+        //symbol
+        //różne metody zapisania funkcji:
+        const adder = () => {
+           const modal = document.getElementById("modal") 
+           const inputA = document.getElementById("number-a"); //szybsze przy wielu wykonaniach
+           const inputB = document.querySelector("#number-b");
+
+        
+            if(inputA.value === "" || inputB.value === ""){
+                console.log("wartości są puste");
+                modal.showModal()
+                return;
+            }
+            if(isNaN(inputA.value) || isNaN(inputB.value)){
+                console.log("nie podałeś liczb")
+                modal.showModal()
+                return;
+            }
+
+            const numA = Number(inputA.value);
+           const numB = Number(inputB.value);
+
+           console.log(`${numA} + ${numB} = ${numA + numB}`);
+           const list = document.getElementById("list");
+           const listItem = document.createElement("li");
+           listItem.innerText = `${numA} + ${numB} = ${numA + numB}`
+           list.append(listItem)
+            
+            
+
+
+            // var zmienna = 10; // zmienna globalna dostępna w całym programie
+            // const zmiennaOStałejReferencji = [];
+            // let zmiennaPoProstu;
+        }
+        // function func (){
+
+        // }
+        // const fun2 = function () {}
+
+        window.onload = () => {
+            const closingButton = document.getElementById("closing")
+            closingButton.addEventListener("click", () => modal.close() )
+        }
+
+    </script>
+
+</body>
+</html>
