@@ -3,8 +3,133 @@
     color: #999; /* Kolor szarego tekstu */
 }
 
-li {
-    display: flex;
-    gap: 60px; /* Dodanie odstępów między elementami */
+button{
+    border-radius: 20px;
+    background-color: #2ecc71;
+    border-style: none;
+    color: white;
+    padding: 15px;
+}
+button:hover{
+    transform: scale(1.1); 
 }
 
+input{
+    border-top-right-radius: 20px;
+    border-end-end-radius: 20px;
+    border: 1px solid beige;
+    background-color: transparent;
+    padding: 15px;
+}
+.container{
+    margin-left: 20%;
+    margin-top: 3%;
+    margin-bottom: 20%;
+    margin-right: 20%;
+    display: grid;
+    justify-content: center;
+    border-radius: 30px;
+    background-color: #f2f2f2; 
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.listContent p{
+    margin: 0;
+}
+.listContent li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    border: solid 1px;
+    border-color: black;
+    background-color: transparent;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-left: -45px;
+}
+.lists{
+    display: grid;
+    align-items: center;
+}
+.removeButton{
+    background-color: red;
+    align-self: flex-end;
+}
+
+.removeButton:hover {
+    transform: scale(1.1); 
+  }
+  
+ 
+.removeButton:focus {
+    outline: none; /* Usunięcie domyślnego obramowania */
+    border-color: red;
+  }
+
+.input-with-button {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-with-button input.ListName {
+    padding: 10px;
+    border: 1px solid beige;
+    border-radius: 20px;
+    background-color: transparent;
+    text-align: center;
+    font-size: 18px;
+    flex: 1; 
+  }
+  
+  .input-with-button button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 10px; 
+  }
+  .input-with-button button:hover{
+    transform: scale(1.1); 
+  }
+  .hidden{
+    display: none;
+  }
+/* Stylizacja dla pola wyboru */
+select {
+    width: 60%;
+    padding: 12px; /* Wewnętrzny padding */
+    font-size: 16px;
+    border: 1px solid #ccc; /* Grubość i styl obramowania */
+    border-radius: 20px; /* Zaokrąglenie rogów */
+    background-color: transparent; /* Kolor tła */
+    transition: border-color 0.3s ease; /* Efekt przejścia dla obramowania */
+  }
+  
+  /* Stylizacja dla pola wyboru po najechaniu myszką */
+  select:hover {
+    border-color: #999; /* Zmiana koloru obramowania na najechaniu myszką */
+  }
+  
+  /* Stylizacja dla pola wyboru po kliknięciu */
+  select:focus {
+    outline: none; /* Usunięcie domyślnego obramowania */
+    border-color: #007bff; /* Zmiana koloru obramowania na kliknięciu */
+  }
+  .listToChoose{
+    grid: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    
+  }

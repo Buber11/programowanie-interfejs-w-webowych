@@ -8,15 +8,31 @@
 </head>
 <body>
 
-    <label for="input">wpisz słowo: </label>
-    <input type="text" id="input">
-    <button id="inputButton" onclick="writeAndDisplay()" >zapisz</button>
-    <button id="bin" onclick="addLastRemovedElement()">przywróć usunięty element</button>
+    <div class="container">
+        <article class="menu">
+                <label for="input">task: </label>
+                <input type="text" id="input">
+                <button id="inputButton" class="addTask" onclick="writeAndDisplay()" >save</button>
+                <button id="bin" onclick="addLastRemovedElement()">back up the last</button>
+                <button id="newList" onclick="addNewList()" >new list</button>
+        </article>
 
-    <ol id="list" onclick="check(event)">
-     
-    </ol>
-    
+        <div class="listToChoose">
+            <label for="select">Wybierz liste</label>
+            <select id="select" name="select" onfocus="downloadAllLists(this)">
+            </select>
+        </div>
+
+        <!-- <div class="list">
+            <div class="input-with-button">
+                <input class="ListName"  placeholder="Name your list">
+                <button class="buttonList" type="button" onclick="hideList(this)">hide</button>
+            </div>
+            <ol id="listContent" class="listContent" onclick="check(event)">
+            </ol>
+
+        </div>
+     -->
 
 
     <script src="./index.js"></script>
