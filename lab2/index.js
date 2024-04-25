@@ -11,11 +11,50 @@ let indexOfRemovedElement;
 const listTitleContainer = [];
 const listContainer = [];
 
+const  openModal = (listElment, task, indexOfSelectedOption) => {
+    const openModalButton = document.getElementById('open-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modal = document.getElementById('modal');
+    const confirmDeleteButton = document.getElementById('confirm-delete');
+    const cancelDeleteButton = document.getElementById('cancel-delete');
+    const modalText = document.getElementById("modal-text");
+
+    modalOverlay.style.display = 'block';
+    modal.style.display = 'block';
+    
+    modalText.innerText = "Czy na pewno chcesz usunąć element: " + task + "?";
+
+    confirmDeleteButton.addEventListener('click', function() {
+        console.log(listElment);
+        LastRemovedListElement = listElment;
+        indexOfRemovedElement = indexOfSelectedOption;
+        listElment.remove();
+        closeModal();
+    });
+  
+    cancelDeleteButton.addEventListener('click', function() {
+      closeModal();
+    });
+  
+    function closeModal() {
+      modalOverlay.style.display = 'none';
+      modal.style.display = 'none';
+    }
+}
+
 const writeAndDisplay = () => {
     const value = input.value;
     if (value.trim() !== '') { // Sprawdzamy, czy wartość nie jest pusta ani nie zawiera samych białych znaków
+
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modal = document.getElementById('modal');
+
         const listElement = document.createElement("li");
+        listElement.classList.add("listPosition");
+
         const paragraph = document.createElement("p"); // Tworzymy element <p> dla tekstu zadania
+        paragraph.classList.add("task");
+
         const button = document.createElement("button");
 
         const selectElement = document.getElementById("select"); 
@@ -26,17 +65,15 @@ const writeAndDisplay = () => {
         button.classList.add("removeButton");
         
         button.addEventListener('click', () => {
-            LastRemovedListElement = listElement;
-            indexOfRemovedElement = indexOfSelectedOption;
-            listElement.remove();
+            openModal(listElement,paragraph.textContent, indexOfSelectedOption);
         });
         
         paragraph.innerText = value; 
         
         listElement.appendChild(paragraph); 
         listElement.appendChild(button);
-
-        list.appendChild(listElement); 
+        
+        list.appendChild(listElement);
         input.value = ''; 
     }
 };
@@ -45,21 +82,22 @@ const writeAndDisplay = () => {
 const check = (event) => {
     const clickedElement = event.target.closest('p');
     
-    // Pobieramy bieżącą datę i czas w formacie: "RRRR-MM-DD HH:MM:SS"
-    const currentDate = new Date();
-    const dateString = currentDate.toLocaleDateString();
-    const currentText = ' ' + dateString;
+    if (clickedElement !== null) {
+        // Pobieramy bieżącą datę i czas w formacie: "RRRR-MM-DD HH:MM:SS"
+        const currentDate = new Date();
+        const dateString = currentDate.toLocaleDateString();
+        const currentText = ' ' + dateString;
 
-    // Jeśli kliknięty element nie ma jeszcze klasy "completed", dodajemy ją
-    if (!clickedElement.classList.contains("completed")) {
-        clickedElement.classList.add("completed");
-        clickedElement.innerText += currentText;
-    } else {
-        // Jeśli kliknięty element ma już klasę "completed", przełączamy ją
-        clickedElement.classList.toggle("completed");
-        const text = clickedElement.textContent.slice(0,-10);
-        clickedElement.textContent = text;
-        
+        // Jeśli kliknięty element nie ma jeszcze klasy "completed", dodajemy ją
+        if (!clickedElement.classList.contains("completed")) {
+            clickedElement.classList.add("completed");
+            clickedElement.innerText += currentText;
+        } else {
+            // Jeśli kliknięty element ma już klasę "completed", przełączamy ją
+            clickedElement.classList.toggle("completed");
+            const text = clickedElement.textContent.slice(0,-10);
+            clickedElement.textContent = text;
+        }
     }
 };
 
@@ -76,17 +114,17 @@ const addLastRemovedElement = () =>{
 
 const addNewList = () => {
     // Tworzymy nowe elementy
-    var list = document.createElement('div');
+    const list = document.createElement('div');
     list.classList.add('list');
 
-    var inputWithButton = document.createElement('div');
+    const inputWithButton = document.createElement('div');
     inputWithButton.classList.add('input-with-button');
 
-    var input = document.createElement('input');
+    const input = document.createElement('input');
     input.classList.add('ListName');
     input.placeholder = 'Name your list';
 
-    var button = document.createElement('button');
+    const button = document.createElement('button');
     button.classList.add('buttonList');
     button.type = 'button';
     button.innerText = 'Hide';
@@ -94,9 +132,16 @@ const addNewList = () => {
         hideList(button);
     };
 
-    var ol = document.createElement('ol');
+    const ol = document.createElement('ol');
     ol.classList.add('listContent');
     ol.onclick = check;
+    const browser = document.createElement('input');
+    browser.classList.add("browser");
+    browser.placeholder = " < serach specific task.. > ";
+    
+
+    ol.appendChild(browser);
+    
 
     // Dodajemy elementy do odpowiednich kontenerów
     inputWithButton.appendChild(input);
@@ -104,9 +149,28 @@ const addNewList = () => {
     list.appendChild(inputWithButton); // Poprawione: dodanie inputWithButton zamiast niezdefiniowanej zmiennej div
     list.appendChild(ol);
 
+    browser.addEventListener("input", () => {
+        const browserText = browser.value.toLowerCase();
+        
+        ol.querySelectorAll('li').forEach(li => {
+            const p = li.querySelector('p');
+            
+            if (p.textContent.toLowerCase().includes(browserText)) {
+                li.classList.remove("hidden");  
+            } else {
+                console.log(li);
+                li.classList.add("hidden");
+            }
+        });
+
+    });
+    
+    
+
     // Dodajemy nowy artykuł do dokumentu
     var container = document.querySelector('.container');
     container.appendChild(list);
+
     
     let listTitleBeforeEdit; 
 
@@ -148,9 +212,11 @@ const hideList = (button) => {
 const downloadAllLists = (select) =>{
     select.innerHTML = "";
     listTitleContainer.forEach( listName => {
-        const option = document.createElement("option");
-        option.innerText = listName;
-        select.appendChild(option);
+        if(listName !== ""){
+            const option = document.createElement("option");
+            option.innerText = listName;
+            select.appendChild(option);
+        }
     });
 }
 

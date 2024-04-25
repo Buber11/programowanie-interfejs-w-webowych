@@ -1,25 +1,91 @@
+@keyframes expand {
+  from {
+    width: 150px; /* Szerokość początkowa */
+  }
+  to {
+    width: 100%; /* Szerokość końcowa */
+  }
+}
+/* Definicja animacji zmniejszania */
+@keyframes shrink {
+  from {
+    width: 100%; /* Szerokość początkowa */
+  }
+  to {
+    width: 150px; /* Szerokość końcowa */
+  }
+}
+@keyframes shrinkInput {
+  from {
+    width: 300px; /* Szerokość początkowa */
+  }
+  to {
+    width: 150px; /* Szerokość końcowa */
+  }
+}
+@keyframes expandInput {
+  from {
+    width: 150px; /* Szerokość początkowa */
+  }
+  to {
+    width: 300px; /* Szerokość końcowa */
+  }
+}
+@keyframes shrinkSelect {
+  from {
+    width: 300px; /* Szerokość początkowa */
+  }
+  to {
+    width: 100px; /* Szerokość końcowa */
+  }
+}
+@keyframes expandSelect {
+  from {
+    width: 100px; /* Szerokość początkowa */
+  }
+  to {
+    width: 300px; /* Szerokość końcowa */
+  }
+}
+
 .completed {
     text-decoration: line-through; /* Przekreślenie tekstu */
     color: #999; /* Kolor szarego tekstu */
 }
 
+
 button{
     border-radius: 20px;
-    background-color: #2ecc71;
-    border-style: none;
-    color: white;
+    border-color: #007bff;
+    color: black;
     padding: 15px;
+    transition: box-shadow 0.3s ease;
 }
 button:hover{
-    transform: scale(1.1); 
+    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
 }
 
 input{
-    border-top-right-radius: 20px;
-    border-end-end-radius: 20px;
-    border: 1px solid beige;
+    border-radius: 20px;
     background-color: transparent;
     padding: 15px;
+    transition: width 0.5s, border-color 0.3s ease,box-shadow 0.3s ease
+}
+
+input:hover{
+  border-color: #007bff;
+  box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
+}
+
+input:focus {
+  animation: expandInput 0.5s forwards; /* Ustawienie animacji rozszerzania */
+  border-color: #007bff;
+}
+
+
+/* Animacja zmniejszania po utracie fokusa */
+input:not(:focus) {
+  animation: shrinkInput 0.5s forwards; /* Ustawienie animacji zmniejszania */
 }
 .container{
     margin-left: 20%;
@@ -29,58 +95,85 @@ input{
     display: grid;
     justify-content: center;
     border-radius: 30px;
-    background-color: #f2f2f2; 
+}
+.settings{
+  background-color: #f5f5f5; 
+  width: 600px;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  transition: box-shadow 0.3s ease;
+}
+.settings:hover{
+  box-shadow: 0px 0px 10px rgba(0, 0, 0 , 0.3);
 }
 
+
 .menu{
+    background-color: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    margin-top: 20px;
     margin-bottom: 20px;
 }
+.list{
+  padding: 20px;
+  width: 600px;
+  background-color: #f5f5f5; 
+  border-radius: 20px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease 
+}
+.list:hover{
+  box-shadow: 0px 0px 10px rgba(0, 0, 0 , 0.3);
+}
 
-.listContent p{
+.task{
     margin: 0;
 }
-.listContent li {
+.listPosition{
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 20px;
-    border: solid 1px;
-    border-color: black;
     background-color: transparent;
     padding: 10px;
     margin-bottom: 5px;
-    margin-left: -45px;
+    margin-left: -40px;
 }
-.lists{
-    display: grid;
-    align-items: center;
+.listPosition:hover{
+  border: solid 1px white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  border-color: #007bff;
+  box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
+
 }
+
+
 .removeButton{
-    background-color: red;
+    background-color: transparent;
     align-self: flex-end;
+    color: black;
+    border: solid 2px;
+    border-color: #dc3545;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
 
 .removeButton:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px #dc3545;
   }
   
- 
-.removeButton:focus {
-    outline: none; /* Usunięcie domyślnego obramowania */
-    border-color: red;
-  }
-
 .input-with-button {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
   }
   
-  .input-with-button input.ListName {
+.input-with-button input.ListName {
     padding: 10px;
     border: 1px solid beige;
     border-radius: 20px;
@@ -88,6 +181,10 @@ input{
     text-align: center;
     font-size: 18px;
     flex: 1; 
+  }
+  .input-with-button input.ListName:hover{
+    transition: border-color 0.3s ease; 
+    border-color: #007bff;
   }
   
   .input-with-button button {
@@ -102,34 +199,121 @@ input{
   .input-with-button button:hover{
     transform: scale(1.1); 
   }
-  .hidden{
-    display: none;
-  }
+ 
 /* Stylizacja dla pola wyboru */
 select {
-    width: 60%;
+    width: 100px;
     padding: 12px; /* Wewnętrzny padding */
     font-size: 16px;
-    border: 1px solid #ccc; /* Grubość i styl obramowania */
+    border: 1px solid beige;; /* Grubość i styl obramowania */
     border-radius: 20px; /* Zaokrąglenie rogów */
     background-color: transparent; /* Kolor tła */
-    transition: border-color 0.3s ease; /* Efekt przejścia dla obramowania */
+    transition: width 0.5s, border-color 0.3s ease, box-shadow 0.3s ease;
   }
   
   /* Stylizacja dla pola wyboru po najechaniu myszką */
-  select:hover {
-    border-color: #999; /* Zmiana koloru obramowania na najechaniu myszką */
+select:hover {
+    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
+    border-color: #007bff; /* Zmiana koloru obramowania na najechaniu myszką */
   }
   
   /* Stylizacja dla pola wyboru po kliknięciu */
-  select:focus {
+select:focus {
     outline: none; /* Usunięcie domyślnego obramowania */
-    border-color: #007bff; /* Zmiana koloru obramowania na kliknięciu */
+    animation: expandSelect 0.5s forwards;
   }
-  .listToChoose{
+ 
+  /* Animacja zmniejszania po utracie fokusa */
+select:not(:focus) {
+    animation: shrinkSelect 0.5s forwards; /* Ustawienie animacji zmniejszania */
+}
+/* Styl dla elementów <option> po najechaniu myszką */
+
+
+.listToChoose{
     grid: flex;
     align-items: center;
     margin-top: 10px;
     margin-bottom: 30px;
-    
   }
+.browser{
+    display: flex;
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid black;
+    width: 150px;
+    margin-bottom: 20px;
+    margin-left: -35px;
+    transition: width 0.5s;
+  }
+.browser:hover{
+    transform: scale(1.05);
+    transition: border-color 0.3s ease; 
+    border-color: #007bff;
+  }
+/* Animacja rozszerzania podczas fokusa */
+.browser:focus {
+  background-color: #ccc;
+  transition: background-color 0.3s ease;
+  animation: expand 0.5s forwards; /* Ustawienie animacji rozszerzania */
+}
+
+/* Animacja zmniejszania po utracie fokusa */
+.browser:not(:focus) {
+  background-color: transparent;
+  transition: background-color 2s ease;
+  animation: shrink 0.5s forwards; /* Ustawienie animacji zmniejszania */
+}
+  /* Tło modalu */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Przeźroczyste czarne tło */
+  z-index: 1000; /* Zabezpiecza, że modal będzie na wierzchu */
+}
+
+/* Modal */
+#modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Cień */
+  z-index: 1001; /* Zabezpiecza, że modal będzie na wierzchu */
+}
+
+/* Tekst w modalu */
+#modal-content {
+  text-align: center;
+}
+
+/* Przyciski w modalu */
+#modal-content button {
+  margin: 10px;
+  padding: 8px 20px;
+  border: none;
+  background-color: #007bff; /* Niebieski kolor tła */
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Przycisk Anuluj ma inny kolor */
+#cancel-delete {
+  background-color: #dc3545; /* Czerwony kolor tła */
+}
+
+.hidden {
+  height: 0; 
+  padding: 0; 
+  overflow: hidden; 
+  transition: height 0.3s ease; 
+}

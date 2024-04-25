@@ -8,20 +8,35 @@
 </head>
 <body>
 
-    <div class="container">
-        <article class="menu">
+    <article class="container">
+        <div class="settings">
+            <article class="menu">
                 <label for="input">task: </label>
                 <input type="text" id="input">
                 <button id="inputButton" class="addTask" onclick="writeAndDisplay()" >save</button>
                 <button id="bin" onclick="addLastRemovedElement()">back up the last</button>
                 <button id="newList" onclick="addNewList()" >new list</button>
+                
+            </article>
+            <div class="listToChoose">
+                <label for="select">Wybierz liste</label>
+                <select id="select" name="select" onfocus="downloadAllLists(this)">
+                </select>
+            </div>
         </article>
 
-        <div class="listToChoose">
-            <label for="select">Wybierz liste</label>
-            <select id="select" name="select" onfocus="downloadAllLists(this)">
-            </select>
-        </div>
+       
+
+        <!-- Tło modalu -->
+        <div id="modal-overlay"></div>
+
+        <div id="modal">
+            <div id="modal-content">
+              <p id="modal-text"></p>
+              <button id="confirm-delete">Tak</button>
+              <button id="cancel-delete">Anuluj</button>
+            </div>
+          </div>
 
         <!-- <div class="list">
             <div class="input-with-button">
