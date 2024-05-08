@@ -1,270 +1,297 @@
+:root{
+
+  /* box shadow */
+  --box-shadow-blue: 0px 0px 20px rgba(0, 191, 255, 0.3);
+  --box-shadow-black: 0px 0px 10px rgba(0, 0, 0 , 0.3);
+  --box-shadow-red: 0px 0px 20px #dc3545;
+
+  /* transition */
+  --box-shadow-transition: box-shadow 0.3s ease;
+  --border-colour-transition: border-color 0.3s ease;
+  --width-transition: width 0.5s ease;
+
+  /*colour setting etc*/
+  --radius-px: 20px;
+  --blue-border-colour: #007bff;
+  --margine-px: 20px;
+  --padding-fewer: 15px;
+  --padding-more:20px;
+
+}
 @keyframes expand {
   from {
-    width: 150px; /* Szerokość początkowa */
+    width: 150px; 
   }
   to {
-    width: 100%; /* Szerokość końcowa */
+    width: 100%; 
   }
 }
-/* Definicja animacji zmniejszania */
+
 @keyframes shrink {
   from {
-    width: 100%; /* Szerokość początkowa */
+    width: 100%; 
   }
   to {
-    width: 150px; /* Szerokość końcowa */
+    width: 150px; 
   }
 }
 @keyframes shrinkInput {
   from {
-    width: 300px; /* Szerokość początkowa */
+    width: 300px;
   }
   to {
-    width: 150px; /* Szerokość końcowa */
+    width: 150px; 
   }
 }
 @keyframes expandInput {
   from {
-    width: 150px; /* Szerokość początkowa */
+    width: 150px; 
   }
   to {
-    width: 300px; /* Szerokość końcowa */
+    width: 300px; 
   }
 }
 @keyframes shrinkSelect {
   from {
-    width: 300px; /* Szerokość początkowa */
+    width: 300px;
   }
   to {
-    width: 100px; /* Szerokość końcowa */
+    width: 100px; 
   }
 }
 @keyframes expandSelect {
   from {
-    width: 100px; /* Szerokość początkowa */
+    width: 100px; 
   }
   to {
-    width: 300px; /* Szerokość końcowa */
+    width: 300px; 
   }
 }
 
 .completed {
-    text-decoration: line-through; /* Przekreślenie tekstu */
-    color: #999; /* Kolor szarego tekstu */
+  text-decoration: line-through; 
+  color: #999;
 }
 
-
-button{
-    border-radius: 20px;
-    border-color: #007bff;
-    color: black;
-    padding: 15px;
-    transition: box-shadow 0.3s ease;
+button {
+  border-radius: var(--radius-px);
+  border-color: var(--blue-border-colour);
+  color: black;
+  padding: 15px;
+  cursor: pointer;
+  transition: var(--box-shadow-transition);
 }
-button:hover{
-    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
-}
-
-input{
-    border-radius: 20px;
-    background-color: transparent;
-    padding: 15px;
-    transition: width 0.5s, border-color 0.3s ease,box-shadow 0.3s ease
+button:hover {
+  box-shadow: var(--box-shadow-blue)
 }
 
-input:hover{
-  border-color: #007bff;
-  box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
+input {
+  border-radius: var(--radius-px);
+  background-color: transparent;
+  padding: 15px;
+  transition: var(--width-transition), var(--border-colour-transition), var(--box-shadow-transition);
+}
+
+input:hover {
+  border-color: var(--blue-border-colour);
+  box-shadow: var(--box-shadow)
 }
 
 input:focus {
-  animation: expandInput 0.5s forwards; /* Ustawienie animacji rozszerzania */
-  border-color: #007bff;
+  animation: expandInput 0.5s forwards;
+  border-color: var(--blue-border-colour);
 }
 
-
-/* Animacja zmniejszania po utracie fokusa */
 input:not(:focus) {
-  animation: shrinkInput 0.5s forwards; /* Ustawienie animacji zmniejszania */
+  animation: shrinkInput 0.5s forwards;
 }
-.container{
-    margin-left: 20%;
-    margin-top: 3%;
-    margin-bottom: 20%;
-    margin-right: 20%;
-    display: grid;
-    justify-content: center;
-    border-radius: 30px;
+
+.container {
+  margin-left: 20%;
+  margin-top: 3%;
+  margin-bottom: 20%;
+  margin-right: 20%;
+  display: grid;
+  justify-content: center;
+  border-radius: var(--radius-px);
 }
-.settings{
+
+.settings {
   background-color: #f5f5f5; 
   width: 600px;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-
-  transition: box-shadow 0.3s ease;
+  border-radius: var(--radius-px);
+  padding: var(--padding-more);
+  margin-bottom: var(--margine-px);
+  margin-top: var(--margine-px);
+  transition: var(--box-shadow-transition);
 }
-.settings:hover{
-  box-shadow: 0px 0px 10px rgba(0, 0, 0 , 0.3);
+.settings:hover {
+  box-shadow: var(--box-shadow-black);
 }
 
-
-.menu{
-    background-color: transparent;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+.buttonsMenu{
+  display: flex;
+  gap: 20px;
 }
-.list{
-  padding: 20px;
+.menu {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--margine-px);
+}
+.taskInput{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.list {
+  padding: var(--padding-more);
   width: 600px;
   background-color: #f5f5f5; 
-  border-radius: 20px;
-  margin-bottom: 20px;
-  transition: box-shadow 0.3s ease 
+  border-radius: var(--radius-px);
+  margin-bottom: var(--margine-px);
+  transition: var(--box-shadow-transition);
 }
-.list:hover{
-  box-shadow: 0px 0px 10px rgba(0, 0, 0 , 0.3);
+.list:hover {
+  box-shadow: var(--box-shadow-black);
 }
 
-.task{
-    margin: 0;
+.task {
+  margin: 0;
 }
-.listPosition{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20px;
-    background-color: transparent;
-    padding: 10px;
-    margin-bottom: 5px;
-    margin-left: -40px;
+
+.listPosition {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius-px);
+  background-color: transparent;
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-left: -40px;
 }
-.listPosition:hover{
+.listPosition:hover {
   border: solid 1px white;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
-  border-color: #007bff;
-  box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
-
+  transition: var(--border-colour-transition), var(--box-shadow-transition);
+  border-color: var(--blue-border-colour);
+  box-shadow: var(--box-shadow-blue);
 }
 
-
-.removeButton{
-    background-color: transparent;
-    align-self: flex-end;
-    color: black;
-    border: solid 2px;
-    border-color: #dc3545;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+.removeTaskButton {
+  background-color: transparent;
+  align-self: flex-end;
+  color: black;
+  border: solid 2px;
+  border-color: #dc3545;
+  transition: var(--border-colour-transition), background-color 1s ease;
 }
-
-.removeButton:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 20px #dc3545;
-  }
+.removeTaskButton:hover {
+  background-color: #dc3545;
   
+}
+
 .input-with-button {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-.input-with-button input.ListName {
-    padding: 10px;
-    border: 1px solid beige;
-    border-radius: 20px;
-    background-color: transparent;
-    text-align: center;
-    font-size: 18px;
-    flex: 1; 
-  }
-  .input-with-button input.ListName:hover{
-    transition: border-color 0.3s ease; 
-    border-color: #007bff;
-  }
-  
-  .input-with-button button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    margin-left: 10px; 
-  }
-  .input-with-button button:hover{
-    transform: scale(1.1); 
-  }
- 
-/* Stylizacja dla pola wyboru */
-select {
-    width: 100px;
-    padding: 12px; /* Wewnętrzny padding */
-    font-size: 16px;
-    border: 1px solid beige;; /* Grubość i styl obramowania */
-    border-radius: 20px; /* Zaokrąglenie rogów */
-    background-color: transparent; /* Kolor tła */
-    transition: width 0.5s, border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Stylizacja dla pola wyboru po najechaniu myszką */
-select:hover {
-    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
-    border-color: #007bff; /* Zmiana koloru obramowania na najechaniu myszką */
-  }
-  
-  /* Stylizacja dla pola wyboru po kliknięciu */
-select:focus {
-    outline: none; /* Usunięcie domyślnego obramowania */
-    animation: expandSelect 0.5s forwards;
-  }
- 
-  /* Animacja zmniejszania po utracie fokusa */
-select:not(:focus) {
-    animation: shrinkSelect 0.5s forwards; /* Ustawienie animacji zmniejszania */
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--margine-px);
 }
-/* Styl dla elementów <option> po najechaniu myszką */
+.input-with-button input.ListName {
+  padding: 10px;
+  border: 1px solid beige;
+  border-radius: var(--radius-px);
+  background-color: transparent;
+  text-align: center;
+  font-size: 18px;
+  flex: 1; 
+}
+.input-with-button input.ListName:hover {
+  transition: var(--border-colour-transition);
+  border-color: var(--blue-border-colour);
+}
+.hideListButton{
+  padding: 10px 20px;
+  color: black;
+  border-color: var(--blue-border-colour);
+  background-color: transparent;
+  border-radius: var(--radius-px);
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 2s ease ; 
+}
+.hideListButton:hover {
+  background-color: var(--blue-border-colour);
+}
 
+.removeListButton{
+  padding: 10px 20px;
+  background-color: transparent;
+  border-color: #dc3545;
+  color: black;
+  border-radius: var(--radius-px);
+  margin-left: 10px;
 
-.listToChoose{
-    grid: flex;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
-  }
-.browser{
-    display: flex;
-    border-radius: 20px;
-    background-color: transparent;
-    border: 1px solid black;
-    width: 150px;
-    margin-bottom: 20px;
-    margin-left: -35px;
-    transition: width 0.5s;
-  }
-.browser:hover{
-    transform: scale(1.05);
-    transition: border-color 0.3s ease; 
-    border-color: #007bff;
-  }
-/* Animacja rozszerzania podczas fokusa */
+  transition: background-color 2s ease
+}
+.removeListButton:hover{
+  background-color: #dc3545;
+}
+
+select {
+  width: 100px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid beige;
+  border-radius: var(--radius-px);
+  background-color: transparent;
+  transition: var(--width-transition), var(--border-colour-transition), var(--box-shadow-transition);
+}
+select:hover {
+  box-shadow: var(--box-shadow-blue);
+  border-color: var(--blue-border-colour);
+}
+select:focus {
+  outline: none;
+  animation: expandSelect 0.5s forwards;
+}
+select:not(:focus) {
+  animation: shrinkSelect 0.5s forwards;
+}
+
+.listToChoose {
+  grid: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.browser {
+  display: flex;
+  border-radius: var(--radius-px);
+  background-color: transparent;
+  border: 1px solid black;
+  width: 150px;
+  margin-bottom: var(--margine-px);
+  margin-left: -35px;
+  transition: var(--width-transition);
+}
+.browser:hover {
+  transform: scale(1.05);
+  transition: var(--border-colour-transition);
+  border-color: var(--blue-border-colour);
+}
 .browser:focus {
   background-color: #ccc;
   transition: background-color 0.3s ease;
-  animation: expand 0.5s forwards; /* Ustawienie animacji rozszerzania */
+  animation: expand 0.5s forwards;
 }
-
-/* Animacja zmniejszania po utracie fokusa */
 .browser:not(:focus) {
   background-color: transparent;
   transition: background-color 2s ease;
-  animation: shrink 0.5s forwards; /* Ustawienie animacji zmniejszania */
+  animation: shrink 0.5s forwards;
 }
-  /* Tło modalu */
+
 #modal-overlay {
   display: none;
   position: fixed;
@@ -272,11 +299,10 @@ select:not(:focus) {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Przeźroczyste czarne tło */
-  z-index: 1000; /* Zabezpiecza, że modal będzie na wierzchu */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-/* Modal */
 #modal {
   display: none;
   position: fixed;
@@ -284,36 +310,30 @@ select:not(:focus) {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
+  padding: var(--padding-more);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Cień */
-  z-index: 1001; /* Zabezpiecza, że modal będzie na wierzchu */
+  box-shadow: var(--box-shadow-black);
+  z-index: 1001;
 }
 
-/* Tekst w modalu */
 #modal-content {
   text-align: center;
 }
 
-/* Przyciski w modalu */
 #modal-content button {
   margin: 10px;
   padding: 8px 20px;
   border: none;
-  background-color: #007bff; /* Niebieski kolor tła */
+  background-color: var(--blue-border-colour);
   color: white;
   border-radius: 3px;
   cursor: pointer;
 }
 
-/* Przycisk Anuluj ma inny kolor */
 #cancel-delete {
-  background-color: #dc3545; /* Czerwony kolor tła */
+  background-color: #dc3545;
 }
 
 .hidden {
-  height: 0; 
-  padding: 0; 
-  overflow: hidden; 
-  transition: height 0.3s ease; 
+  display: none;
 }

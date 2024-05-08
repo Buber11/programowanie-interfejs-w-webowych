@@ -1,0 +1,272 @@
+/* Definicje zmiennych */
+:root {
+    --primary-color: #007bff; /* Główny kolor */
+    --danger-color: #dc3545; /* Kolor ostrzeżenia */
+    --light-gray: #f5f5f5; /* Jasnoszary kolor */
+  }
+  
+  /* Animacje */
+  @keyframes expand {
+    from {
+      width: 150px;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes shrink {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 150px;
+    }
+  }
+  
+  @keyframes shrinkInput {
+    from {
+      width: 300px;
+    }
+    to {
+      width: 150px;
+    }
+  }
+  
+  @keyframes expandInput {
+    from {
+      width: 150px;
+    }
+    to {
+      width: 300px;
+    }
+  }
+  
+  @keyframes shrinkSelect {
+    from {
+      width: 300px;
+    }
+    to {
+      width: 100px;
+    }
+  }
+  
+  @keyframes expandSelect {
+    from {
+      width: 100px;
+    }
+    to {
+      width: 300px;
+    }
+  }
+  
+  /* Stylizacja elementów */
+  .completed {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  button, input, select {
+    border-radius: 20px;
+    transition: box-shadow 0.3s ease, width 0.5s, border-color 0.3s ease;
+  }
+  
+  button:hover {
+    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
+  }
+  
+  input, select {
+    background-color: transparent;
+    padding: 15px;
+  }
+  
+  input:hover, select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
+  }
+  
+  input:focus {
+    animation: expandInput 0.5s forwards;
+    border-color: var(--primary-color);
+  }
+  
+  input:not(:focus), select:not(:focus) {
+    animation: shrinkInput 0.5s forwards;
+  }
+  
+  /* Dodatkowe style */
+  .container {
+    margin: 3% 20%;
+    display: grid;
+    justify-content: center;
+    border-radius: 30px;
+  }
+  
+  .settings, .list {
+    background-color: var(--light-gray); 
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .settings:hover, .list:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .menu {
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .listPosition {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background-color: transparent;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-left: -40px;
+  }
+  
+  .listPosition:hover {
+    border: solid 1px white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+    border-color: var(--primary-color);
+    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.3); 
+  }
+  
+  .removeButton {
+    background-color: transparent;
+    align-self: flex-end;
+    color: black;
+    border: solid 2px;
+    border-color: var(--danger-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  }
+  
+  .removeButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px var(--danger-color);
+  }
+  
+  .input-with-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-with-button input.ListName {
+    padding: 10px;
+    border: 1px solid beige;
+    border-radius: 20px;
+    background-color: transparent;
+    text-align: center;
+    font-size: 18px;
+    flex: 1; 
+  }
+  
+  .input-with-button input.ListName:hover {
+    transition: border-color 0.3s ease; 
+    border-color: var(--primary-color);
+  }
+  
+  .input-with-button button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 10px; 
+  }
+  
+  .input-with-button button:hover {
+    transform: scale(1.1); 
+  }
+  
+  .browser {
+    display: flex;
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid black;
+    width: 150px;
+    margin-bottom: 20px;
+    margin-left: -35px;
+    transition: width 0.5s;
+  }
+  
+  .browser:hover {
+    transform: scale(1.05);
+    transition: border-color 0.3s ease; 
+    border-color: var(--primary-color);
+  }
+  
+  .browser:focus {
+    background-color: #ccc;
+    transition: background-color 0.3s ease;
+    animation: expand 0.5s forwards;
+  }
+  
+  .browser:not(:focus) {
+    background-color: transparent;
+    transition: background-color 2s ease;
+    animation: shrink 0.5s forwards;
+  }
+  
+  /* Modal */
+  #modal-overlay, #modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  #modal {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+  }
+  
+  #modal-content {
+    text-align: center;
+  }
+  
+  #modal-content button {
+    margin: 10px;
+    padding: 8px 20px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  #cancel-delete {
+    background-color: var(--danger-color);
+  }
+  
+  .hidden {
+    height: 0; 
+    padding: 0; 
+    overflow: hidden; 
+    transition: height 0.3s ease; 
+  }
+  

@@ -192,11 +192,11 @@ body{
 }
 
 .hero-cards>.card-image:nth-child(1){
-    background-image: url(/Assets/heroSmall1.jpeg);
+    background-image: url(./Assets/heroSmall1.jpeg);
 }
 
 .hero-cards>.card-image:nth-child(2){
-    background-image: url(/Assets/heroSmall2.jpg);
+    background-image: url(./Assets/heroSmall2.jpg);
 }
 
 .chip {
@@ -258,16 +258,16 @@ body{
 }
 
 .hotel-card:nth-child(1)>.card-image{
-    background-image: url(/Assets/cards1.jpg);
+    background-image: url(./Assets/cards1.jpg);
 }
 .hotel-card:nth-child(2)>.card-image{
-    background-image: url(/Assets/cards2.jpg);
+    background-image: url(./Assets/cards2.jpg);
 }
 .hotel-card:nth-child(3)>.card-image{
-    background-image: url(/Assets/cards3.jpg);
+    background-image: url(./Assets/cards3.jpg);
 }
 .hotel-card:nth-child(4)>.card-image{
-    background-image: url(/Assets/cards4.jpg);
+    background-image: url(./Assets/cards4.jpg);
 }
 
 .text-small{

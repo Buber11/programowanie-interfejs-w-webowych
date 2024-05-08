@@ -1,18 +1,149 @@
 'use strict';
 
-window.onload = () => {
-    const input = document.getElementById("input"); // Poprawiona metoda pobierania elementu
-};
 
 
-let LastRemovedListElement;
-let indexOfRemovedElement;
+const allList = [];
+const select = document.getElementById('select');
+let lastRemovedList; 
 
-const listTitleContainer = [];
-const listContainer = [];
+class List {
+    static nextId = 1;
 
-const  openModal = (listElment, task, indexOfSelectedOption) => {
-    const openModalButton = document.getElementById('open-modal');
+    constructor(){
+        this.id = List.nextId++;
+        this.option = document.createElement('option');
+        allList.push(this);
+        this.taskList = [];
+
+        this.inputListName = document.createElement('input');
+        this.hideListButton = document.createElement('button');
+        this.removeListButton = document.createElement("button");
+        this.inputWithButton = document.createElement('div');
+        
+        this.listTaskContainer = document.createElement('ol');
+        this.browser = document.createElement('input');
+
+        this.listDiv = document.createElement("div");
+        
+    }
+
+    createNewList() {
+        
+        this.inputListName.classList.add('ListName');
+        this.inputListName.placeholder = 'Name yout list';
+
+        //update select option
+        this.inputListName.addEventListener('blur', () =>{
+            this.option.innerText = this.inputListName.value;
+            if(this.option.textContent !== ""){
+                select.appendChild(this.option);
+            }else{
+                select.removeChild(this.option);
+            }
+        })
+
+        this.hideListButton.classList.add('hideListButton');
+        this.hideListButton.innerHTML = "Hide";
+
+        //implementation of hidding list
+        this.hideListButton.addEventListener('click', () =>{
+            if(this.listTaskContainer.classList.contains('hidden')){
+                this.listTaskContainer.classList.remove('hidden');
+                this.hideListButton.innerHTML = "Hide";
+            }else {
+                this.listTaskContainer.classList.add('hidden');
+                this.hideListButton.innerHTML = "Show";
+            }
+
+        })
+
+        this.removeListButton.classList.add('removeListButton');
+        this.removeListButton.innerText = "Remove";
+
+        //implementation of removing list
+        this.removeListButton.addEventListener('click', () => {
+            lastRemovedList = this;
+            this.option.remove();
+            allList.splice(allList.indexOf(this),1);
+            this.listDiv.remove();
+        });
+
+        this.listTaskContainer.classList.add('listContent');
+
+        this.browser.classList.add("browser");
+        this.browser.placeholder = " < serach specific task.. > ";
+
+        //implementation of searching specific task from the list
+        this.browser.addEventListener('input', () => {
+            const browersValue = this.browser.value;
+            this.taskList.forEach( task => {
+                if(task.taskContent.textContent.includes(browersValue)){
+                    task.listElement.classList.remove('hidden');
+                }else{
+                    task.listElement.classList.add('hidden');
+                }
+            });
+        })
+    
+
+        this.inputWithButton.classList.add('input-with-button');
+        this.inputWithButton.appendChild(this.inputListName);
+        this.inputWithButton.appendChild(this.hideListButton);
+        this.inputWithButton.appendChild(this.removeListButton);
+
+
+        this.listTaskContainer.appendChild(this.browser);
+
+        this.listDiv.classList.add("list");
+        this.listDiv.appendChild(this.inputWithButton);
+        this.listDiv.appendChild(this.listTaskContainer);
+    }
+
+    addNewTask(task){
+
+        this.taskList.push(task);
+        this.listTaskContainer.appendChild(task.listElement);
+
+    }
+
+    removeTask(task){
+        const indexOftask = this.taskList.indexOf(task);
+        this.taskList.splice(indexOftask,1);
+    }
+}
+
+class Task{
+
+    constructor(list){
+        this.listElement = document.createElement("li");
+        this.taskContent = document.createElement('p');
+        this.removeTaskButton = document.createElement('button');
+        this.list = list;
+    }
+
+    createNewTask(taskContentText){
+        this.listElement.classList.add("listPosition");
+
+        this.taskContent.classList.add("task");
+        this.taskContent.innerText = taskContentText;
+
+        this.removeTaskButton.innerText = "X"; 
+        this.removeTaskButton.classList.add("removeTaskButton");
+        this.removeTaskButton.addEventListener('click', () => {
+            openModal(this,this.taskContent.textContent);
+        });
+        this.listElement.appendChild(this.taskContent); 
+        this.listElement.appendChild(this.removeTaskButton);
+    }
+
+    remove(){
+        this.list.removeTask(this);
+        this.listElement.remove();
+    }
+
+}
+
+const  openModal = (task, taskContent) => {
     const modalOverlay = document.getElementById('modal-overlay');
     const modal = document.getElementById('modal');
     const confirmDeleteButton = document.getElementById('confirm-delete');
@@ -22,13 +153,10 @@ const  openModal = (listElment, task, indexOfSelectedOption) => {
     modalOverlay.style.display = 'block';
     modal.style.display = 'block';
     
-    modalText.innerText = "Czy na pewno chcesz usunąć element: " + task + "?";
+    modalText.innerText = "Are you sure to remove task: " + taskContent + "?";
 
     confirmDeleteButton.addEventListener('click', function() {
-        console.log(listElment);
-        LastRemovedListElement = listElment;
-        indexOfRemovedElement = indexOfSelectedOption;
-        listElment.remove();
+        task.remove();
         closeModal();
     });
   
@@ -42,183 +170,31 @@ const  openModal = (listElment, task, indexOfSelectedOption) => {
     }
 }
 
-const writeAndDisplay = () => {
+const input = document.getElementById('input');
+
+
+const save = () => {
     const value = input.value;
-    if (value.trim() !== '') { // Sprawdzamy, czy wartość nie jest pusta ani nie zawiera samych białych znaków
+    if (value.trim() !== '') { 
+        const list = allList.find( list => list.option.textContent === select.value );
 
-        const modalOverlay = document.getElementById('modal-overlay');
-        const modal = document.getElementById('modal');
+        const task = new Task(list);
+        task.createNewTask(value);
 
-        const listElement = document.createElement("li");
-        listElement.classList.add("listPosition");
+        list.addNewTask(task);
 
-        const paragraph = document.createElement("p"); // Tworzymy element <p> dla tekstu zadania
-        paragraph.classList.add("task");
-
-        const button = document.createElement("button");
-
-        const selectElement = document.getElementById("select"); 
-        const indexOfSelectedOption = selectElement.selectedIndex;
-        const list = listContainer[indexOfSelectedOption];
-        
-        button.innerText = "X"; // Ustawiamy tekst na przycisku
-        button.classList.add("removeButton");
-        
-        button.addEventListener('click', () => {
-            openModal(listElement,paragraph.textContent, indexOfSelectedOption);
-        });
-        
-        paragraph.innerText = value; 
-        
-        listElement.appendChild(paragraph); 
-        listElement.appendChild(button);
-        
-        list.appendChild(listElement);
         input.value = ''; 
     }
+
 };
 
-// zadanie 2
-const check = (event) => {
-    const clickedElement = event.target.closest('p');
-    
-    if (clickedElement !== null) {
-        // Pobieramy bieżącą datę i czas w formacie: "RRRR-MM-DD HH:MM:SS"
-        const currentDate = new Date();
-        const dateString = currentDate.toLocaleDateString();
-        const currentText = ' ' + dateString;
-
-        // Jeśli kliknięty element nie ma jeszcze klasy "completed", dodajemy ją
-        if (!clickedElement.classList.contains("completed")) {
-            clickedElement.classList.add("completed");
-            clickedElement.innerText += currentText;
-        } else {
-            // Jeśli kliknięty element ma już klasę "completed", przełączamy ją
-            clickedElement.classList.toggle("completed");
-            const text = clickedElement.textContent.slice(0,-10);
-            clickedElement.textContent = text;
-        }
-    }
-};
-
-// zadanie 3
-const addLastRemovedElement = () =>{
-
-    if(LastRemovedListElement != null){
-        listContainer[indexOfRemovedElement].appendChild(LastRemovedListElement);
-        LastRemovedListElement = null;
-    }
-    
-};
-
+const PageContainer = document.getElementById('container');
 
 const addNewList = () => {
-    // Tworzymy nowe elementy
-    const list = document.createElement('div');
-    list.classList.add('list');
-
-    const inputWithButton = document.createElement('div');
-    inputWithButton.classList.add('input-with-button');
-
-    const input = document.createElement('input');
-    input.classList.add('ListName');
-    input.placeholder = 'Name your list';
-
-    const button = document.createElement('button');
-    button.classList.add('buttonList');
-    button.type = 'button';
-    button.innerText = 'Hide';
-    button.onclick = function() {
-        hideList(button);
-    };
-
-    const ol = document.createElement('ol');
-    ol.classList.add('listContent');
-    ol.onclick = check;
-    const browser = document.createElement('input');
-    browser.classList.add("browser");
-    browser.placeholder = " < serach specific task.. > ";
-    
-
-    ol.appendChild(browser);
-    
-
-    // Dodajemy elementy do odpowiednich kontenerów
-    inputWithButton.appendChild(input);
-    inputWithButton.appendChild(button);
-    list.appendChild(inputWithButton); // Poprawione: dodanie inputWithButton zamiast niezdefiniowanej zmiennej div
-    list.appendChild(ol);
-
-    browser.addEventListener("input", () => {
-        const browserText = browser.value.toLowerCase();
-        
-        ol.querySelectorAll('li').forEach(li => {
-            const p = li.querySelector('p');
-            
-            if (p.textContent.toLowerCase().includes(browserText)) {
-                li.classList.remove("hidden");  
-            } else {
-                console.log(li);
-                li.classList.add("hidden");
-            }
-        });
-
-    });
-    
-    
-
-    // Dodajemy nowy artykuł do dokumentu
-    var container = document.querySelector('.container');
-    container.appendChild(list);
-
-    
-    let listTitleBeforeEdit; 
-
-    input.addEventListener('focus', (event) => {
-        listTitleBeforeEdit = event.target.value;
-    });
-
-
-    input.addEventListener('blur', (event) => {
-        const listTitleAfterEdit = event.target.value; 
-
-        if (listTitleBeforeEdit === ""){
-            listTitleContainer.push(listTitleAfterEdit);
-            listContainer.push(ol);
-        }else if (listTitleAfterEdit !== listTitleBeforeEdit) {
-            const index = listTitleContainer.indexOf(listTitleBeforeEdit);
-            listTitleContainer.splice(index, 1, listTitleAfterEdit);
-        }
-
-    
-        listTitleBeforeEdit = null;
-    });
-
+    const list = new List();
+    list.createNewList();
+    PageContainer.appendChild(list.listDiv);
 };
-
-const hideList = (button) => {
-    const listDiv = button.closest('.list');
-    const list = listDiv.querySelector('.listContent'); 
-    console.log(list); // Zmieniłem list na listContent
-    if (list.classList.contains("hidden")) {
-        list.classList.remove("hidden");
-        button.innerText = "Hide";
-    } else {
-        list.classList.add("hidden");
-        button.innerText = "Show";
-    }
-};
-
-const downloadAllLists = (select) =>{
-    select.innerHTML = "";
-    listTitleContainer.forEach( listName => {
-        if(listName !== ""){
-            const option = document.createElement("option");
-            option.innerText = listName;
-            select.appendChild(option);
-        }
-    });
-}
 
 
 

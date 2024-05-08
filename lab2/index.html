@@ -8,22 +8,29 @@
 </head>
 <body>
 
-    <article class="container">
+    <article id="container" class="container">
         <div class="settings">
             <article class="menu">
-                <label for="input">task: </label>
-                <input type="text" id="input">
-                <button id="inputButton" class="addTask" onclick="writeAndDisplay()" >save</button>
-                <button id="bin" onclick="addLastRemovedElement()">back up the last</button>
-                <button id="newList" onclick="addNewList()" >new list</button>
-                
+
+                <div class="taskInput">
+                    <label>task: </label>
+                    <input type="text" id="input">
+                </div>
+
+                <div class="buttonsMenu">
+                    <button id="inputButton" class="addTask" onclick="save()" >save</button>
+                    <button id="newList" onclick="addNewList()" >new list</button>   
+                </div> 
+
             </article>
             <div class="listToChoose">
                 <label for="select">Wybierz liste</label>
-                <select id="select" name="select" onfocus="downloadAllLists(this)">
+                <select id="select" name="select">
                 </select>
             </div>
-        </article>
+        </div>
+
+    </article>
 
        
 
