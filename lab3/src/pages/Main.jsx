@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Main.css'
 import hotelsData from '../hotelCardData';
 
@@ -29,21 +29,38 @@ function HeroSection() {
 }
 
 function BrowseSection() {
+    const [searchText, setSearchText] = useState('');
+
+    const handleSearchChange = (event) => {
+        setSearchText(event.target.value);
+    };
+
+    const filteredHotels = hotelsData.filter((hotel) =>
+        hotel.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        hotel.location.toLowerCase().includes(searchText.toLowerCase()) ||
+        hotel.description.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <section id="browse" className="browse-section">
             <p className="title-middle">Explore the hotels</p>
-            <input className="searchbar" placeholder="Search by hotel name, place etc." />
+            <input
+                className="searchbar"
+                placeholder="Search by hotel name, place etc."
+                value={searchText}
+                onChange={handleSearchChange}
+            />
             <section className="grid hotel-cards">
-            {hotelsData.map((hotel, index) => (
-                <HotelCard
-                    key={index}
-                    location={hotel.location}
-                    name={hotel.name}
-                    description={hotel.description}
-                    rating={hotel.rating}
-                    price={hotel.price}
-                />
-            ))}
+                {filteredHotels.map((hotel, index) => (
+                    <HotelCard
+                        key={index}
+                        location={hotel.location}
+                        name={hotel.name}
+                        description={hotel.description}
+                        rating={hotel.rating}
+                        price={hotel.price}
+                    />
+                ))}
             </section>
         </section>
     );
