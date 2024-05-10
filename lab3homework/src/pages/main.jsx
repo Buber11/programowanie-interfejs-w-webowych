@@ -36,9 +36,7 @@ function BrowseSection() {
     };
 
     const filteredHotels = hotelsData.filter((hotel) =>
-        hotel.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        hotel.location.toLowerCase().includes(searchText.toLowerCase()) ||
-        hotel.description.toLowerCase().includes(searchText.toLowerCase())
+        hotel.name.toLowerCase().includes(searchText.toLowerCase()) 
     );
 
     return (
