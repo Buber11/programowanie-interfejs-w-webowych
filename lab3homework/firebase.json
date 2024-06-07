@@ -1,10 +1,12 @@
 {
   "hosting": {
+    "site": "piwo-31b97",
     "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ]
+    
   }
 }
